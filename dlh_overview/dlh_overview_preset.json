@@ -1,0 +1,3063 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_CLICKHOUSE_DLH_MONITORING_TEST",
+      "label": "ClickHouse_DLH_Monitoring_Test",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "grafana-clickhouse-datasource",
+      "pluginName": "ClickHouse"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "grafana-clickhouse-datasource",
+      "name": "ClickHouse",
+      "version": "4.8.2"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "read_percentage"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Read Data %"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "write_percentage"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Write Data %"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "read_query_percentage"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Read Queries %"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    5
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "write_query_percentage"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Write Queries %"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    5
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_read"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_written"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "read_queries"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "write_queries"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_queries"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "WITH daily_stats AS (\r\n    SELECT \r\n        toStartOfDay(q.execution_start_time) AS time,\r\n        sum(q.physical_input_bytes) AS bytes_read,\r\n        sum(q.written_bytes) AS bytes_written,\r\n        count(CASE WHEN q.physical_input_bytes > 0 THEN 1 END) AS read_queries,\r\n        count(CASE WHEN q.written_bytes > 0 THEN 1 END) AS write_queries,\r\n        count() AS total_queries\r\n    FROM `trino-logs-experiment`.mv_query_metrics q\r\n    WHERE \r\n        q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n        AND q.environment IN (${env})\r\n    GROUP BY time\r\n)\r\nSELECT\r\n    time,\r\n    bytes_read,\r\n    bytes_written,\r\n    read_queries,\r\n    write_queries,\r\n    total_queries,\r\n    (bytes_read / (bytes_read + bytes_written + 1)) * 100 AS read_percentage,\r\n    (bytes_written / (bytes_read + bytes_written + 1)) * 100 AS write_percentage,\r\n    (read_queries / (total_queries + 0.001)) * 100 AS read_query_percentage,\r\n    (write_queries / (total_queries + 0.001)) * 100 AS write_query_percentage\r\nFROM daily_stats\r\nORDER BY time\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Data I/O comparison",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Bytes Read"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_written"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Bytes Written"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "rows_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Rows Read"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "rows_written"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Rows Written"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "read_queries"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Read Queries"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "write_queries"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Write Queries"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              }
+            ]
+          },
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Write Queries",
+                  "Read Queries"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 23,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    toStartOfDay(q.execution_start_time) AS time,\r\n    sum(q.physical_input_bytes) AS bytes_read,\r\n    sum(q.written_bytes) AS bytes_written,\r\n    sum(q.physical_input_rows) AS rows_read,\r\n    sum(q.written_rows) AS rows_written,\r\n    count(CASE WHEN q.physical_input_bytes > 0 THEN 1 END) AS read_queries,\r\n    count(CASE WHEN q.written_bytes > 0 THEN 1 END) AS write_queries\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.environment IN (${env})\r\nGROUP BY time\r\nORDER BY time\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Data I/O over time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_count FINISHED"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Finished queries"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_count FAILED"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Failed queries"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "sum"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    toStartOfDay(q.execution_start_time) AS time,\r\n    q.query_state,\r\n    count() AS query_count\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.query_state != ''\r\n    AND q.environment IN (${env})\r\nGROUP BY time, q.query_state\r\nORDER BY time, query_count DESC\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Queries success rate",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "multi"
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query Count"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_bytes_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Bytes Read"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_rows_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Rows Read"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_bytes_per_query"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Bytes Per Query (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    toStartOfDay(event_time) AS time,\r\n    sum(source_physical_input_bytes) AS total_bytes_read,\r\n    sum(source_physical_input_rows) AS total_rows_read,\r\n    avg(source_physical_input_bytes) AS avg_bytes_per_query\r\nFROM `trino-logs-experiment`.mv_source_tables s\r\n    INNER JOIN `trino-logs-experiment`.mv_query_metrics q\r\n    ON s.query_id = q.query_id AND q.environment IN (${env})\r\nWHERE event_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\nGROUP BY time\r\nORDER BY time\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Data usage over time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_peak_memory"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Peak Memory (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_peak_memory"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Peak Memory (max)"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_input_bytes"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Input Bytes (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_input_rows"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Input Rows (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    toStartOfDay(q.execution_start_time) AS time,\r\n    avg(q.peak_user_memory_bytes) AS avg_peak_memory,\r\n    avg(q.physical_input_bytes) AS avg_input_bytes\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.environment IN (${env})\r\nGROUP BY time\r\nORDER BY time",
+          "refId": "A"
+        }
+      ],
+      "title": "Memory usage over time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_queued_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Queue Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_queued_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Queue Time (max)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p95_queued_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Queue Time (p95)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_planning_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Planning Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    toStartOfDay(q.execution_start_time) AS time,\r\n    avg(q.queued_time) AS avg_queued_time,\r\n    max(q.queued_time) AS max_queued_time,\r\n    quantile(0.95)(q.queued_time) AS p95_queued_time,\r\n    avg(q.analysis_time + q.planning_time) AS avg_planning_time\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.environment IN (${env})\r\nGROUP BY time\r\nORDER BY time\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Queue Stats",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_execution_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Execution Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (max)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "p95_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (p95)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    toStartOfDay(q.execution_start_time) AS time,\r\n    avg(q.wall_time) AS avg_wall_time,\r\n    avg(q.cpu_time) AS avg_cpu_time,\r\n    avg(q.execution_time) AS avg_execution_time,\r\n    max(q.wall_time) AS max_wall_time,\r\n    quantile(0.95)(q.wall_time) AS p95_wall_time\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.wall_time > 0\r\n    AND q.environment IN (${env})\r\nGROUP BY time\r\nORDER BY time\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Time usage stats",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_source"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Source"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "user_agent"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "User Agent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query Count"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_bytes_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Bytes Read"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 0,
+        "y": 49
+      },
+      "id": 18,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    q.source AS query_source,\r\n    q.user_agent,\r\n    count() AS query_count,\r\n    sum(q.physical_input_bytes) AS total_bytes_read,\r\n    avg(q.wall_time) AS avg_wall_time\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.source != ''\r\n    AND q.environment IN (${env})\r\nGROUP BY query_source, q.user_agent\r\nORDER BY query_count DESC\r\nLIMIT 15\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Query distribution per source",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_id"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query ID"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Query details",
+                    "url": "/d/cehiijccq8jr4c/dlh-query-details?var-query_id=${__data.fields.query_id}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "username"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "User"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "User details",
+                    "url": "/d/aehsw9cq6ebk0a/dlh-user-details?var-user=${__data.fields.username}&from=now-90d&to=now"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_type"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query Type"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_state"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query State"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bytes_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Bytes Read"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "rows_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Rows Read"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "peak_memory"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Peak Memory"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "execution_start_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Execution Time"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 81
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query State"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 109
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query Type"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 107
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 12,
+        "y": 49
+      },
+      "id": 17,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    q.query_id,\r\n    q.user AS username,\r\n    q.query_type,\r\n    q.query_state,\r\n    q.physical_input_bytes AS bytes_read,\r\n    q.physical_input_rows AS rows_read,\r\n    q.wall_time AS wall_time,\r\n    q.cpu_time AS cpu_time,\r\n    q.peak_user_memory_bytes AS peak_memory,\r\n    q.execution_start_time\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.environment IN (${env})\r\nORDER BY bytes_read DESC\r\nLIMIT 25",
+          "refId": "A"
+        }
+      ],
+      "title": "TOP-25 Queries by bytes read",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "username"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "User"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "User details",
+                    "url": "/d/aehsw9cq6ebk0a/dlh-user-details?var-user=${__data.fields.username}&from=now-90d&to=now"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query Count"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_bytes_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Bytes Read"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_rows_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Rows Read"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (max)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (max)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sum_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (total)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query Count"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 115
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 62
+      },
+      "id": 20,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    q.user AS username,\r\n    count() AS query_count,\r\n    sum(q.physical_input_bytes) AS total_bytes_read,\r\n    sum(q.physical_input_rows) AS total_rows_read,\r\n    avg(cpu_time) AS avg_cpu_time,\r\n    max(cpu_time) AS max_cpu_time,\r\n    sum(cpu_time) AS sum_cpu_time,\r\n    avg(q.wall_time) AS avg_wall_time,\r\n    max(q.wall_time) AS max_wall_time\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.user != ''\r\n    AND q.environment IN (${env})\r\nGROUP BY username\r\nORDER BY query_count DESC\r\nLIMIT 25\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "TOP-25 Users by queries",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "username"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "User"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "User details",
+                    "url": "/d/aehsw9cq6ebk0a/dlh-user-details?var-user=${__data.fields.username}&from=now-90d&to=now"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query Count"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_bytes_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Bytes Read"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_rows_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Rows Read"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time (max)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (max)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sum_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (total)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 62
+      },
+      "id": 19,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    q.user AS username,\r\n    count() AS query_count,\r\n    sum(q.physical_input_bytes) AS total_bytes_read,\r\n    sum(q.physical_input_rows) AS total_rows_read,\r\n    avg(cpu_time) AS avg_cpu_time,\r\n    max(cpu_time) AS max_cpu_time,\r\n    sum(cpu_time) AS sum_cpu_time,\r\n    avg(q.wall_time) AS avg_wall_time,\r\n    max(q.wall_time) AS max_wall_time\r\nFROM `trino-logs-experiment`.mv_query_metrics q\r\nWHERE \r\n    q.execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND q.user != ''\r\n    AND q.environment IN (${env})\r\nGROUP BY username\r\nORDER BY sum(cpu_time) DESC\r\nLIMIT 25\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "TOP-25 Users by CPUTime",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "links": [
+            {
+              "targetBlank": false,
+              "title": "Table details",
+              "url": "/d/eehtcqm31ze9sa/dlh-data-storage-details?var-catalog=${__data.fields.catalog}&var-schema=${__data.fields.schema}&var-table=${__data.fields.table}&from=now-90d&to=now"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "catalog"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Catalog"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "schema"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Schema"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "table"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Table"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "write_query_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Write Query Count"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_bytes_written"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Bytes Written"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_rows_written"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Rows Written"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_bytes_per_query"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max Bytes Per Query"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_bytes_per_query"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Avg Bytes Per Query"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_write_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max Write Time"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_write_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Avg Write Time"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Schema"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 179
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Table"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 258
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Catalog"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 76
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sum_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (total)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 70
+      },
+      "id": 21,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    target_catalog AS catalog,\r\n    target_schema AS schema,\r\n    target_table AS table,\r\n    count() AS write_query_count,\r\n    sum(written_bytes) AS total_bytes_written,\r\n    sum(written_rows) AS total_rows_written,\r\n    max(written_bytes) AS max_bytes_per_query,\r\n    avg(written_bytes) AS avg_bytes_per_query,\r\n    avg(cpu_time) AS avg_cpu_time,\r\n    sum(cpu_time) AS sum_cpu_time,\r\n    max(wall_time) AS max_write_time,\r\n    avg(wall_time) AS avg_write_time\r\nFROM `trino-logs-experiment`.mv_query_metrics\r\nWHERE \r\n    execution_start_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND target_catalog != ''\r\n    AND target_schema != ''\r\n    AND target_table != ''\r\n    AND written_bytes > 0\r\n    AND q.environment IN (${env})\r\nGROUP BY catalog, schema, table\r\nORDER BY total_bytes_written DESC\r\nLIMIT 25\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "TOP-25 Tables by bytes written",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "links": [
+            {
+              "title": "Table details",
+              "url": "/d/eehtcqm31ze9sa/dlh-data-storage-details?var-catalog=${__data.fields.catalog}&var-schema=${__data.fields.schema}&var-table=${__data.fields.table}&from=now-90d&to=now"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "catalog"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Catalog"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "schema"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Schema"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "table"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Table"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "read_query_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Read Query Count"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_bytes_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Bytes Read"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_rows_read"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Total Rows Read"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_bytes_per_query"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max Bytes Per Query"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_bytes_per_query"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Avg Bytes Per Query"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_read_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Read Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_read_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Read Time (max)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (avg)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Catalog"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 78
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Schema"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 174
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Table"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 259
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Read Query Count"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 222
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Bytes Read"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 217
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Rows Read"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 224
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Bytes Per Query"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 221
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sum_cpu_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Time (sum)"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Avg Bytes Per Query"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 224
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 81
+      },
+      "id": 22,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT \r\n    s.source_catalog AS catalog,\r\n    s.source_schema AS schema,\r\n    s.source_table AS table,\r\n    count() AS read_query_count,\r\n    sum(s.source_physical_input_bytes) AS total_bytes_read,\r\n    sum(s.source_physical_input_rows) AS total_rows_read,\r\n    max(s.source_physical_input_bytes) AS max_bytes_per_query,\r\n    avg(s.source_physical_input_bytes) AS avg_bytes_per_query,\r\n    avg(q.wall_time) AS avg_read_time,\r\n    max(q.wall_time) AS max_read_time,\r\n    avg(q.cpu_time) AS avg_cpu_time,\r\n    sum(q.cpu_time) AS sum_cpu_time\r\nFROM `trino-logs-experiment`.mv_source_tables s\r\nJOIN `trino-logs-experiment`.mv_query_metrics q ON s.query_id = q.query_id\r\nWHERE \r\n    s.event_time BETWEEN toDateTime($__fromTime) AND toDateTime($__toTime)\r\n    AND s.source_catalog != ''\r\n    AND s.source_schema != ''\r\n    AND s.source_table != ''\r\n    AND s.source_physical_input_bytes > 0\r\n    AND q.environment IN (${env})\r\nGROUP BY catalog, schema, table\r\nORDER BY total_bytes_read DESC\r\nLIMIT 25\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "TOP-25 Tables by bytes read",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+        },
+        "definition": "SELECT DISTINCT environment\nFROM `trino-logs-experiment`.mv_query_metrics",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Environment",
+        "multi": true,
+        "name": "env",
+        "options": [],
+        "query": "SELECT DISTINCT environment\nFROM `trino-logs-experiment`.mv_query_metrics",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "DLH Overview",
+  "uid": "eehie8yvhfdoge",
+  "version": 51,
+  "weekStart": ""
+}

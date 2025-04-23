@@ -1,0 +1,1833 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_CLICKHOUSE_DLH_MONITORING_TEST",
+      "label": "ClickHouse_DLH_Monitoring_Test",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "grafana-clickhouse-datasource",
+      "pluginName": "ClickHouse"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gapit-htmlgraphics-panel",
+      "name": "HTML graphics",
+      "version": "2.1.1"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.2.0"
+    },
+    {
+      "type": "datasource",
+      "id": "grafana-clickhouse-datasource",
+      "name": "ClickHouse",
+      "version": "4.8.2"
+    },
+    {
+      "type": "panel",
+      "id": "logs",
+      "name": "Logs",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "FAILED": {
+                  "color": "dark-red",
+                  "index": 0
+                },
+                "FINISHED": {
+                  "color": "semi-dark-green",
+                  "index": 1
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 10,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "allValues"
+          ],
+          "fields": "/^query_state$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n  query_state\r\nFROM\r\n  `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n  query_id = '${query_id}'",
+          "refId": "A"
+        }
+      ],
+      "title": "Query State",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "parallelism_ratio"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Parallelism Ratio"
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 1
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 0.3
+                    },
+                    {
+                      "color": "green",
+                      "value": 0.7
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "peak_task_memory"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Peak Task Memory"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "peak_memory"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Peak Memory"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpu_efficiency"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CPU Efficiency"
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 0.5
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 14,
+        "x": 10,
+        "y": 0
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n    peak_task_user_memory / peak_user_memory_bytes AS parallelism_ratio,\r\n    peak_task_total_memory AS peak_task_memory,\r\n    peak_user_memory_bytes AS peak_memory,\r\n    cpu_time / wall_time AS cpu_efficiency\r\nFROM\r\n    `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n    query_id = '${query_id}'\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Parallelism metrics",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Main Overview",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 6
+      },
+      "id": 1,
+      "options": {
+        "SVGBaseFix": true,
+        "add100Percentage": true,
+        "calcsMutation": "standard",
+        "centerAlignContent": false,
+        "codeData": "{}",
+        "css": "* {\n  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;\n}\n\n.metrics-table {\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.metrics-row {\n  border-bottom: 1px solid rgba(204, 204, 220, 0.15);\n}\n\n.metrics-label {\n  padding: 8px 10px;\n  background-color: #18604d;\n  color: white;\n  font-weight: 500;\n  width: 40%;\n}\n\n.metrics-value {\n  padding: 8px 10px;\n  background-color: rgba(134, 126, 126, 0.5);\n}",
+        "dynamicData": false,
+        "dynamicFieldDisplayValues": false,
+        "dynamicHtmlGraphics": false,
+        "dynamicProps": false,
+        "html": "<div id=\"metrics-container\" style=\"width: 100%; height: 100%; overflow: auto;\">\n  <table class=\"metrics-table\">\n    <tbody id=\"metrics-body\">\n      <tr class=\"metrics-row\">\n        <td class=\"metrics-label\">Loading...</td>\n        <td class=\"metrics-value\">Please wait</td>\n      </tr>\n    </tbody>\n  </table>\n</div>",
+        "onInit": "// Инициализация панели\nconst metricsBody = htmlNode.getElementById('metrics-body');\nif (metricsBody) {\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'Loading metrics...';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "onInitOnResize": false,
+        "onRender": "// Получаем таблицу для метрик\nconst metricsBody = htmlNode.getElementById('metrics-body');\n\n// Очищаем предыдущие данные\nif (metricsBody) {\n  metricsBody.innerHTML = '';\n}\n\nif (data && data.series && data.series.length > 0) {\n  const series = data.series[0];\n  \n  if (series.fields && series.fields.length > 0) {\n    // Получаем названия полей\n    const fieldNames = series.fields.map(field => field.name);\n    \n    // Заполняем данные из первой строки (если есть)\n    if (series.length > 0) {\n      // Создаем строки для каждого поля\n      for (let i = 0; i < series.fields.length; i++) {\n        const field = series.fields[i];\n        const fieldName = field.name;\n        \n        // Получаем значение поля\n        let value = '';\n        if (typeof field.values.get === 'function') {\n          value = field.values.get(0);\n        } else if (field.values.buffer && field.values.buffer.length > 0) {\n          value = field.values.buffer[0];\n        } else if (field.values[0] !== undefined) {\n          value = field.values[0];\n        }\n        \n        // Преобразуем имя поля в читаемый формат (например, user_agent -> User Agent)\n        const label = fieldName\n          .replace(/[`'\"]/g, '')\n          .split('_')\n          .map(word => word.charAt(0).toUpperCase() + word.slice(1))\n          .join(' ');\n        \n        // Создаем строку таблицы\n        const row = document.createElement('tr');\n        row.className = 'metrics-row';\n        \n        const labelCell = document.createElement('td');\n        labelCell.className = 'metrics-label';\n        labelCell.textContent = label;\n        \n        const valueCell = document.createElement('td');\n        valueCell.className = 'metrics-value';\n        valueCell.textContent = value || 'N/A';\n        \n        row.appendChild(labelCell);\n        row.appendChild(valueCell);\n        metricsBody.appendChild(row);\n      }\n    } else {\n      // Если нет данных\n      const row = document.createElement('tr');\n      row.className = 'metrics-row';\n      \n      const labelCell = document.createElement('td');\n      labelCell.className = 'metrics-label';\n      labelCell.textContent = 'Status';\n      \n      const valueCell = document.createElement('td');\n      valueCell.className = 'metrics-value';\n      valueCell.textContent = 'No data available';\n      \n      row.appendChild(labelCell);\n      row.appendChild(valueCell);\n      metricsBody.appendChild(row);\n    }\n  } else {\n    // Если нет полей\n    const row = document.createElement('tr');\n    row.className = 'metrics-row';\n    \n    const labelCell = document.createElement('td');\n    labelCell.className = 'metrics-label';\n    labelCell.textContent = 'Status';\n    \n    const valueCell = document.createElement('td');\n    valueCell.className = 'metrics-value';\n    valueCell.textContent = 'No fields found in data';\n    \n    row.appendChild(labelCell);\n    row.appendChild(valueCell);\n    metricsBody.appendChild(row);\n  }\n} else {\n  // Если нет данных\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'No data available';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "overflow": "auto",
+        "panelupdateOnMount": true,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "renderOnMount": true,
+        "rootCSS": "",
+        "useGrafanaScrollbar": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n\t`user`,\r\n\tuser_agent,\r\n\t`source`,\r\n\tenvironment,\r\n\tquery_type\r\nFROM\r\n\t`trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n\tquery_id = '${query_id}'",
+          "refId": "A"
+        }
+      ],
+      "title": "Session Stats",
+      "type": "gapit-htmlgraphics-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 16,
+        "x": 8,
+        "y": 6
+      },
+      "id": 5,
+      "options": {
+        "SVGBaseFix": true,
+        "add100Percentage": true,
+        "calcsMutation": "standard",
+        "centerAlignContent": false,
+        "codeData": "{}",
+        "css": "* { font-family: monospace; }\n\n.sql-container {\n  background-color: #1e1e1e;\n  color: #e0e0e0;\n  padding: 10px;\n  padding-right: 20px; /* Увеличиваем отступ справа для полосы прокрутки */\n  border-radius: 4px;\n  width: calc(100% - 2px); /* Вычитаем границы */\n  height: calc(100% - 2px); /* Вычитаем границы */\n  overflow: auto;\n  white-space: pre-wrap;\n  font-size: 14px;\n  line-height: 1.5;\n  text-align: left;\n  box-sizing: border-box; /* Включаем box-sizing */\n  margin: 0;\n  border: 1px solid #333;\n}\n\n/* Стили для скроллбара */\n.sql-container::-webkit-scrollbar {\n  width: 8px;\n  height: 8px;\n}\n\n.sql-container::-webkit-scrollbar-track {\n  background: #1e1e1e;\n}\n\n.sql-container::-webkit-scrollbar-thumb {\n  background: #555;\n  border-radius: 4px;\n}\n\n.sql-container::-webkit-scrollbar-thumb:hover {\n  background: #777;\n}\n\n.keyword { color: #569cd6; font-weight: bold; }\n.function { color: #dcdcaa; }\n.string { color: #ce9178; }\n.number { color: #b5cea8; }\n.operator { color: #d4d4d4; }\n.comment { color: #6a9955; font-style: italic; }\n",
+        "dynamicData": false,
+        "dynamicFieldDisplayValues": false,
+        "dynamicHtmlGraphics": false,
+        "dynamicProps": false,
+        "html": "<div class=\"sql-container\" id=\"sql-query-container\">\n  Loading SQL query...\n</div>",
+        "onInit": "const sqlContainer = htmlNode.getElementById('sql-query-container');\nif (sqlContainer) {\n  sqlContainer.textContent = 'Waiting for SQL query...';\n}",
+        "onInitOnResize": false,
+        "onRender": "const sqlContainer = htmlNode.getElementById('sql-query-container');\n\nif (sqlContainer) {\n  try {\n    if (data && data.series && data.series.length > 0) {\n      const series = data.series[0];\n      \n      if (series.fields && series.fields.length > 0) {\n        const field = series.fields[0];\n        let sqlQuery = '';\n        \n        if (field.values && field.values.length > 0) {\n          if (typeof field.values.get === 'function') {\n            sqlQuery = field.values.get(0);\n          } else if (field.values.buffer && field.values.buffer.length > 0) {\n            sqlQuery = field.values.buffer[0];\n          } else {\n            sqlQuery = field.values[0];\n          }\n        }\n        \n        if (sqlQuery) {\n          // Защищаем от XSS (исключаем экранирование одинарных кавычек)\n          const safeText = sqlQuery.toString()\n            .replace(/&/g, '&amp;')\n            .replace(/</g, '&lt;')\n            .replace(/>/g, '&gt;')\n            .replace(/\"/g, '&quot;');\n          \n          // Простая подсветка синтаксиса\n          let highlighted = safeText\n            // Комментарии (должны быть первыми)\n            .replace(/(--.*)$/gm, '<span class=\"comment\">$1</span>')\n            // Ключевые слова\n            .replace(/\\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|HAVING|JOIN|ON|AND|OR|AS|IN|NOT|NULL|CASE|WHEN|THEN|ELSE|END|UNION|ALL|INSERT|INTO|WITH|VALUES|UPDATE|DELETE|CREATE|ALTER|DROP|TABLE|VIEW|NOTE)\\b/gi, \n                    '<span class=\"keyword\">$1</span>')\n            // Строки в одинарных кавычках (модифицировано для корректного отображения)\n            .replace(/('[^']*')/g, '<span class=\"string\">$1</span>')\n            // Числа\n            .replace(/\\b(\\d+)\\b/g, '<span class=\"number\">$1</span>')\n            // Функции\n            .replace(/\\b([a-zA-Z0-9_]+)\\s*\\(/g, '<span class=\"function\">$1</span>(');\n          \n          sqlContainer.innerHTML = highlighted;\n        } else {\n          sqlContainer.textContent = 'No SQL query found';\n        }\n      } else {\n        sqlContainer.textContent = 'No fields found';\n      }\n    } else {\n      sqlContainer.textContent = 'No data available';\n    }\n  } catch (error) {\n    sqlContainer.textContent = 'Error: ' + error.message;\n  }\n}",
+        "overflow": "auto",
+        "panelupdateOnMount": true,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "renderOnMount": true,
+        "rootCSS": ".panel-container { overflow: hidden; }",
+        "useGrafanaScrollbar": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n\treplaceRegexpAll(\r\n    replaceAll(\r\n        replaceAll(\r\n            JSONExtractString(l.logs, 'eventPayload', 'metadata', 'query'), \r\n            '\\\\\\\\n', \r\n            '\\n'\r\n        ),\r\n        '\\\\\"', \r\n        '\"'\r\n    ),\r\n    '(SELECT|FROM|WHERE|GROUP BY|ORDER BY|HAVING|JOIN|ON)',\r\n    '\\n\\\\1'\r\n) AS formatted_query\r\nFROM\r\n\t`trino-logs`.logs l\r\nWHERE\r\n\tquery_id = '${query_id}';",
+          "refId": "A"
+        }
+      ],
+      "title": "SQL Query",
+      "type": "gapit-htmlgraphics-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 13
+      },
+      "id": 3,
+      "options": {
+        "SVGBaseFix": true,
+        "add100Percentage": true,
+        "calcsMutation": "standard",
+        "centerAlignContent": false,
+        "codeData": "{}",
+        "css": "* {\n  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;\n}\n\n.metrics-table {\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.metrics-row {\n  border-bottom: 1px solid rgba(204, 204, 220, 0.15);\n}\n\n.metrics-label {\n  padding: 8px 10px;\n  background-color: #1f5c87;\n  color: white;\n  font-weight: 500;\n  width: 40%;\n}\n\n.metrics-value {\n  padding: 8px 10px;\n  background-color: rgba(134, 126, 126, 0.5);\n  text-align: right;\n  font-family: monospace;\n}",
+        "dynamicData": false,
+        "dynamicFieldDisplayValues": false,
+        "dynamicHtmlGraphics": false,
+        "dynamicProps": false,
+        "html": "<div id=\"metrics-container\" style=\"width: 100%; height: 100%; overflow: auto;\">\n  <table class=\"metrics-table\">\n    <tbody id=\"metrics-body\">\n      <tr class=\"metrics-row\">\n        <td class=\"metrics-label\">Loading...</td>\n        <td class=\"metrics-value\">Please wait</td>\n      </tr>\n    </tbody>\n  </table>\n</div>",
+        "onInit": "// Инициализация панели\nconst metricsBody = htmlNode.getElementById('metrics-body');\nif (metricsBody) {\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'Loading metrics...';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "onInitOnResize": false,
+        "onRender": "// Функция для форматирования времени\nfunction formatTime(timeValue, isDateTime) {\n  if (timeValue === null || timeValue === undefined) return 'N/A';\n  \n  // Если это дата/время в формате ISO строки\n  if (isDateTime) {\n    try {\n      const date = new Date(timeValue);\n      \n      // Форматируем в YYYY-MM-DD HH:MM:SS.ms\n      const year = date.getFullYear();\n      const month = String(date.getMonth() + 1).padStart(2, '0');\n      const day = String(date.getDate()).padStart(2, '0');\n      const hours = String(date.getHours()).padStart(2, '0');\n      const minutes = String(date.getMinutes()).padStart(2, '0');\n      const seconds = String(date.getSeconds()).padStart(2, '0');\n      const ms = String(date.getMilliseconds()).padStart(3, '0');\n      \n      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${ms}`;\n    } catch (e) {\n      return String(timeValue);\n    }\n  }\n  \n  // Если это число (миллисекунды или секунды) - для длительности\n  const num = Number(timeValue);\n  if (isNaN(num)) return String(timeValue);\n  \n  // Форматирование в зависимости от величины, с максимум 2 знаками после запятой\n  if (num >= 1000) {\n    return (num / 1000).toFixed(2) + ' s';\n  } else {\n    return num.toFixed(2) + ' ms';\n  }\n}\n\n// Получаем таблицу для метрик\nconst metricsBody = htmlNode.getElementById('metrics-body');\n\n// Очищаем предыдущие данные\nif (metricsBody) {\n  metricsBody.innerHTML = '';\n}\n\nif (data && data.series && data.series.length > 0) {\n  const series = data.series[0];\n  \n  if (series.fields && series.fields.length > 0) {\n    // Определяем, какие поля являются датами/временем, а какие - длительностями\n    const dateTimeFields = ['create_time', 'execution_start_time', 'end_time'];\n    const durationFields = ['wall_time', 'queued_time', 'analysis_time', 'planning_time', 'execution_time'];\n    \n    // Заполняем данные из первой строки (если есть)\n    if (series.length > 0) {\n      // Создаем строки для каждого поля\n      for (let i = 0; i < series.fields.length; i++) {\n        const field = series.fields[i];\n        const fieldName = field.name;\n        \n        // Получаем значение поля\n        let value = '';\n        if (typeof field.values.get === 'function') {\n          value = field.values.get(0);\n        } else if (field.values.buffer && field.values.buffer.length > 0) {\n          value = field.values.buffer[0];\n        } else if (field.values[0] !== undefined) {\n          value = field.values[0];\n        }\n        \n        // Определяем, является ли поле датой/временем или длительностью\n        const isDateTime = dateTimeFields.includes(fieldName);\n        \n        // Форматируем временные значения\n        const formattedValue = formatTime(value, isDateTime);\n        \n        // Преобразуем имя поля в читаемый формат (например, user_agent -> User Agent)\n        const label = fieldName\n          .replace(/[`'\"]/g, '')\n          .split('_')\n          .map(word => word.charAt(0).toUpperCase() + word.slice(1))\n          .join(' ');\n        \n        // Создаем строку таблицы\n        const row = document.createElement('tr');\n        row.className = 'metrics-row';\n        \n        const labelCell = document.createElement('td');\n        labelCell.className = 'metrics-label';\n        labelCell.textContent = label;\n        \n        const valueCell = document.createElement('td');\n        valueCell.className = 'metrics-value';\n        valueCell.textContent = formattedValue || 'N/A';\n        \n        row.appendChild(labelCell);\n        row.appendChild(valueCell);\n        metricsBody.appendChild(row);\n      }\n    } else {\n      // Если нет данных\n      const row = document.createElement('tr');\n      row.className = 'metrics-row';\n      \n      const labelCell = document.createElement('td');\n      labelCell.className = 'metrics-label';\n      labelCell.textContent = 'Status';\n      \n      const valueCell = document.createElement('td');\n      valueCell.className = 'metrics-value';\n      valueCell.textContent = 'No data available';\n      \n      row.appendChild(labelCell);\n      row.appendChild(valueCell);\n      metricsBody.appendChild(row);\n    }\n  } else {\n    // Если нет полей\n    const row = document.createElement('tr');\n    row.className = 'metrics-row';\n    \n    const labelCell = document.createElement('td');\n    labelCell.className = 'metrics-label';\n    labelCell.textContent = 'Status';\n    \n    const valueCell = document.createElement('td');\n    valueCell.className = 'metrics-value';\n    valueCell.textContent = 'No fields found in data';\n    \n    row.appendChild(labelCell);\n    row.appendChild(valueCell);\n    metricsBody.appendChild(row);\n  }\n} else {\n  // Если нет данных\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'No data available';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "overflow": "auto",
+        "panelupdateOnMount": true,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "renderOnMount": true,
+        "rootCSS": "",
+        "useGrafanaScrollbar": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n\tcreate_time,\r\n\texecution_start_time,\r\n\tend_time,\r\n\twall_time,\r\n\tqueued_time,\r\n\tanalysis_time,\r\n\tplanning_time,\r\n\texecution_time\r\nFROM\r\n\t`trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n\tquery_id = '${query_id}'",
+          "refId": "A"
+        }
+      ],
+      "title": "Time Stats",
+      "type": "gapit-htmlgraphics-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 0,
+        "y": 23
+      },
+      "id": 4,
+      "options": {
+        "SVGBaseFix": true,
+        "add100Percentage": true,
+        "calcsMutation": "standard",
+        "centerAlignContent": false,
+        "codeData": "{}",
+        "css": "* {\n  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;\n}\n\n.metrics-table {\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.metrics-row {\n  border-bottom: 1px solid rgba(204, 204, 220, 0.15);\n}\n\n.metrics-label {\n  padding: 8px 10px;\n  background-color: #7b2d4f;\n  color: white;\n  font-weight: 500;\n  width: 40%;\n}\n\n.metrics-value {\n  padding: 8px 10px;\n  background-color: rgba(134, 126, 126, 0.5);\n  text-align: right;\n  font-family: monospace;\n}",
+        "dynamicData": false,
+        "dynamicFieldDisplayValues": false,
+        "dynamicHtmlGraphics": false,
+        "dynamicProps": false,
+        "html": "<div id=\"metrics-container\" style=\"width: 100%; height: 100%; overflow: auto;\">\n  <table class=\"metrics-table\">\n    <tbody id=\"metrics-body\">\n      <tr class=\"metrics-row\">\n        <td class=\"metrics-label\">Loading...</td>\n        <td class=\"metrics-value\">Please wait</td>\n      </tr>\n    </tbody>\n  </table>\n</div>",
+        "onInit": "// Инициализация панели\nconst metricsBody = htmlNode.getElementById('metrics-body');\nif (metricsBody) {\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'Loading metrics...';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "onInitOnResize": false,
+        "onRender": "// Функция для форматирования байтов\nfunction formatBytes(bytes) {\n  if (bytes === null || bytes === undefined) return 'N/A';\n  \n  bytes = Number(bytes);\n  if (isNaN(bytes)) return 'N/A';\n  \n  const units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];\n  let i = 0;\n  \n  while (bytes >= 1024 && i < units.length - 1) {\n    bytes /= 1024;\n    i++;\n  }\n  \n  return bytes.toFixed(2) + ' ' + units[i];\n}\n\n// Получаем таблицу для метрик\nconst metricsBody = htmlNode.getElementById('metrics-body');\n\n// Очищаем предыдущие данные\nif (metricsBody) {\n  metricsBody.innerHTML = '';\n}\n\nif (data && data.series && data.series.length > 0) {\n  const series = data.series[0];\n  \n  if (series.fields && series.fields.length > 0) {\n    // Получаем названия полей\n    const fieldNames = series.fields.map(field => field.name);\n    \n    // Заполняем данные из первой строки (если есть)\n    if (series.length > 0) {\n      // Создаем строки для каждого поля\n      for (let i = 0; i < series.fields.length; i++) {\n        const field = series.fields[i];\n        const fieldName = field.name;\n        \n        // Получаем значение поля\n        let value = '';\n        if (typeof field.values.get === 'function') {\n          value = field.values.get(0);\n        } else if (field.values.buffer && field.values.buffer.length > 0) {\n          value = field.values.buffer[0];\n        } else if (field.values[0] !== undefined) {\n          value = field.values[0];\n        }\n        \n        // Форматируем значения в байтах\n        const formattedValue = formatBytes(value);\n        \n        // Преобразуем имя поля в читаемый формат (например, user_agent -> User Agent)\n        const label = fieldName\n          .replace(/[`'\"]/g, '')\n          .split('_')\n          .map(word => word.charAt(0).toUpperCase() + word.slice(1))\n          .join(' ');\n        \n        // Создаем строку таблицы\n        const row = document.createElement('tr');\n        row.className = 'metrics-row';\n        \n        const labelCell = document.createElement('td');\n        labelCell.className = 'metrics-label';\n        labelCell.textContent = label;\n        \n        const valueCell = document.createElement('td');\n        valueCell.className = 'metrics-value';\n        valueCell.textContent = formattedValue || 'N/A';\n        \n        row.appendChild(labelCell);\n        row.appendChild(valueCell);\n        metricsBody.appendChild(row);\n      }\n    } else {\n      // Если нет данных\n      const row = document.createElement('tr');\n      row.className = 'metrics-row';\n      \n      const labelCell = document.createElement('td');\n      labelCell.className = 'metrics-label';\n      labelCell.textContent = 'Status';\n      \n      const valueCell = document.createElement('td');\n      valueCell.className = 'metrics-value';\n      valueCell.textContent = 'No data available';\n      \n      row.appendChild(labelCell);\n      row.appendChild(valueCell);\n      metricsBody.appendChild(row);\n    }\n  } else {\n    // Если нет полей\n    const row = document.createElement('tr');\n    row.className = 'metrics-row';\n    \n    const labelCell = document.createElement('td');\n    labelCell.className = 'metrics-label';\n    labelCell.textContent = 'Status';\n    \n    const valueCell = document.createElement('td');\n    valueCell.className = 'metrics-value';\n    valueCell.textContent = 'No fields found in data';\n    \n    row.appendChild(labelCell);\n    row.appendChild(valueCell);\n    metricsBody.appendChild(row);\n  }\n} else {\n  // Если нет данных\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'No data available';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "overflow": "auto",
+        "panelupdateOnMount": true,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "renderOnMount": true,
+        "rootCSS": "",
+        "useGrafanaScrollbar": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n\tpeak_user_memory_bytes,\r\n\tpeak_task_user_memory,\r\n\tpeak_task_total_memory,\r\n\tphysical_input_bytes,\r\n\tprocessed_input_bytes,\r\n\tinternal_network_bytes,\r\n\ttotal_bytes,\r\n\toutput_bytes,\r\n\twritten_bytes,\r\n\tcumulative_memory::UInt64 AS cumulative_memory\r\nFROM\r\n\t`trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n\tquery_id = '${query_id}'",
+          "refId": "A"
+        }
+      ],
+      "title": "Bytes I/O",
+      "type": "gapit-htmlgraphics-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 20,
+        "w": 16,
+        "x": 8,
+        "y": 23
+      },
+      "id": 15,
+      "options": {
+        "SVGBaseFix": true,
+        "add100Percentage": true,
+        "calcsMutation": "standard",
+        "centerAlignContent": true,
+        "codeData": "{}",
+        "css": "",
+        "dynamicData": false,
+        "dynamicFieldDisplayValues": false,
+        "dynamicHtmlGraphics": false,
+        "dynamicProps": false,
+        "html": "<pre id=\"query-plan-container\" class=\"query-plan-container\">Загрузка плана запроса...</pre>",
+        "onInit": "const container = htmlNode.getElementById('query-plan-container');\nif (container) {\n  container.textContent = 'Ожидание загрузки плана запроса...';\n}",
+        "onInitOnResize": false,
+        "onRender": "const container = htmlNode.getElementById('query-plan-container');\n\nif (container) {\n  try {\n    if (!data || !data.series || data.series.length === 0) {\n      container.textContent = 'Нет данных от источника';\n      return;\n    }\n    \n    const series = data.series[0];\n    if (!series.fields || series.fields.length === 0) {\n      container.textContent = 'Нет полей в данных';\n      return;\n    }\n    \n    const field = series.fields[0];\n    let rawPlan = null;\n    \n    if (field.values) {\n      if (typeof field.values.get === 'function') {\n        rawPlan = field.values.get(0);\n      } else if (field.values.buffer && field.values.buffer.length > 0) {\n        rawPlan = field.values.buffer[0];\n      } else if (Array.isArray(field.values)) {\n        rawPlan = field.values[0];\n      }\n    } else if (field.value !== undefined) {\n      rawPlan = field.value;\n    }\n    \n    if (!rawPlan && series.rows && series.rows.length > 0) {\n      rawPlan = series.rows[0][0];\n    }\n    \n    if (!rawPlan) {\n      container.textContent = 'Не удалось получить данные плана запроса';\n      return;\n    }\n    \n    // Защищаем от XSS\n    const safeText = rawPlan.toString()\n      .replace(/&/g, '&amp;')\n      .replace(/</g, '&lt;')\n      .replace(/>/g, '&gt;')\n      .replace(/\"/g, '&quot;');\n    \n    // Простая подсветка синтаксиса\n    let highlighted = safeText\n      // Ключевые слова\n      .replace(/\\b(HASH|SINGLE|FINAL|PARTIAL|BROADCAST|REPLICATED)\\b/g, '<span class=\"keyword\">$1</span>')\n      // Числа\n      .replace(/\\b(\\d+(\\.\\d+)?)\\b/g, '<span class=\"number\">$1</span>')\n      // Единицы измерения\n      .replace(/\\b(\\d+(\\.\\d+)?)(MB|GB|KB|ms|s|m|h)\\b/g, '<span class=\"number\">$1</span><span class=\"string\">$3</span>')\n      // Имена операторов\n      .replace(/^(\\s*)(Output|Aggregate|LocalExchange|Project|RemoteSource|ScanFilter|ScanProject|ScanFilterProject|InnerJoin)/gm, '$1<span class=\"function\">$2</span>');\n    \n    container.innerHTML = highlighted;\n    \n  } catch (error) {\n    container.textContent = 'Ошибка: ' + error.message;\n  }\n}",
+        "overflow": "auto",
+        "panelupdateOnMount": true,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "renderOnMount": true,
+        "rootCSS": ".query-plan-container {\n  font-family: monospace;\n  font-size: 12px;\n  line-height: 1.4;\n  background-color: #1e1e1e;\n  color: #d4d4d4;\n  border-radius: 4px;\n  padding: 8px;\n  white-space: pre;\n  overflow-x: auto;\n  height: 100%;\n  width: 100%;\n  box-sizing: border-box;\n  margin: 0;\n  text-align: left;\n}\n\n.query-plan-container::-webkit-scrollbar {\n  width: 8px;\n  height: 8px;\n}\n\n.query-plan-container::-webkit-scrollbar-track {\n  background: #1e1e1e;\n}\n\n.query-plan-container::-webkit-scrollbar-thumb {\n  background: #555;\n  border-radius: 4px;\n}\n\n.query-plan-container::-webkit-scrollbar-thumb:hover {\n  background: #777;\n}\n\n.keyword { color: #569cd6; }\n.function { color: #dcdcaa; }\n.string { color: #ce9178; }\n.number { color: #b5cea8; }\n.operator { color: #d4d4d4; }\n.comment { color: #6a9955; font-style: italic; }",
+        "useGrafanaScrollbar": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n\tJSONExtractString(l.logs, 'eventPayload', 'metadata', 'plan') AS formatted_query\r\nFROM\r\n\t`trino-logs`.logs l\r\nWHERE\r\n\tquery_id = '${query_id}';",
+          "refId": "A"
+        }
+      ],
+      "title": "Query Plan",
+      "type": "gapit-htmlgraphics-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 35
+      },
+      "id": 2,
+      "options": {
+        "SVGBaseFix": true,
+        "add100Percentage": true,
+        "calcsMutation": "standard",
+        "centerAlignContent": false,
+        "codeData": "{}",
+        "css": "* {\n  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;\n}\n\n.metrics-table {\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.metrics-row {\n  border-bottom: 1px solid rgba(204, 204, 220, 0.15);\n}\n\n.metrics-label {\n  padding: 8px 10px;\n  background-color: #4b1b78;\n  color: white;\n  font-weight: 500;\n  width: 40%;\n}\n\n.metrics-value {\n  padding: 8px 10px;\n  background-color: rgba(134, 126, 126, 0.5);\n  text-align: right;\n  font-family: monospace;\n}",
+        "dynamicData": false,
+        "dynamicFieldDisplayValues": false,
+        "dynamicHtmlGraphics": false,
+        "dynamicProps": false,
+        "html": "<div id=\"metrics-container\" style=\"width: 100%; height: 100%; overflow: auto;\">\n  <table class=\"metrics-table\">\n    <tbody id=\"metrics-body\">\n      <tr class=\"metrics-row\">\n        <td class=\"metrics-label\">Loading...</td>\n        <td class=\"metrics-value\">Please wait</td>\n      </tr>\n    </tbody>\n  </table>\n</div>",
+        "onInit": "// Инициализация панели\nconst metricsBody = htmlNode.getElementById('metrics-body');\nif (metricsBody) {\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'Loading metrics...';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "onInitOnResize": false,
+        "onRender": "// Функция для форматирования больших чисел\nfunction formatNumber(num) {\n  if (num === null || num === undefined) return 'N/A';\n  \n  num = Number(num);\n  if (isNaN(num)) return 'N/A';\n  \n  if (num >= 1000000000) {\n    return (num / 1000000000).toFixed(2) + ' B';\n  } else if (num >= 1000000) {\n    return (num / 1000000).toFixed(2) + ' M';\n  } else if (num >= 1000) {\n    return (num / 1000).toFixed(2) + ' K';\n  } else {\n    return num.toString();\n  }\n}\n\n// Получаем таблицу для метрик\nconst metricsBody = htmlNode.getElementById('metrics-body');\n\n// Очищаем предыдущие данные\nif (metricsBody) {\n  metricsBody.innerHTML = '';\n}\n\nif (data && data.series && data.series.length > 0) {\n  const series = data.series[0];\n  \n  if (series.fields && series.fields.length > 0) {\n    // Получаем названия полей\n    const fieldNames = series.fields.map(field => field.name);\n    \n    // Заполняем данные из первой строки (если есть)\n    if (series.length > 0) {\n      // Создаем строки для каждого поля\n      for (let i = 0; i < series.fields.length; i++) {\n        const field = series.fields[i];\n        const fieldName = field.name;\n        \n        // Получаем значение поля\n        let value = '';\n        if (typeof field.values.get === 'function') {\n          value = field.values.get(0);\n        } else if (field.values.buffer && field.values.buffer.length > 0) {\n          value = field.values.buffer[0];\n        } else if (field.values[0] !== undefined) {\n          value = field.values[0];\n        }\n        \n        // Форматируем числовые значения\n        const formattedValue = formatNumber(value);\n        \n        // Преобразуем имя поля в читаемый формат (например, user_agent -> User Agent)\n        const label = fieldName\n          .replace(/[`'\"]/g, '')\n          .split('_')\n          .map(word => word.charAt(0).toUpperCase() + word.slice(1))\n          .join(' ');\n        \n        // Создаем строку таблицы\n        const row = document.createElement('tr');\n        row.className = 'metrics-row';\n        \n        const labelCell = document.createElement('td');\n        labelCell.className = 'metrics-label';\n        labelCell.textContent = label;\n        \n        const valueCell = document.createElement('td');\n        valueCell.className = 'metrics-value';\n        valueCell.textContent = formattedValue || 'N/A';\n        \n        row.appendChild(labelCell);\n        row.appendChild(valueCell);\n        metricsBody.appendChild(row);\n      }\n    } else {\n      // Если нет данных\n      const row = document.createElement('tr');\n      row.className = 'metrics-row';\n      \n      const labelCell = document.createElement('td');\n      labelCell.className = 'metrics-label';\n      labelCell.textContent = 'Status';\n      \n      const valueCell = document.createElement('td');\n      valueCell.className = 'metrics-value';\n      valueCell.textContent = 'No data available';\n      \n      row.appendChild(labelCell);\n      row.appendChild(valueCell);\n      metricsBody.appendChild(row);\n    }\n  } else {\n    // Если нет полей\n    const row = document.createElement('tr');\n    row.className = 'metrics-row';\n    \n    const labelCell = document.createElement('td');\n    labelCell.className = 'metrics-label';\n    labelCell.textContent = 'Status';\n    \n    const valueCell = document.createElement('td');\n    valueCell.className = 'metrics-value';\n    valueCell.textContent = 'No fields found in data';\n    \n    row.appendChild(labelCell);\n    row.appendChild(valueCell);\n    metricsBody.appendChild(row);\n  }\n} else {\n  // Если нет данных\n  const row = document.createElement('tr');\n  row.className = 'metrics-row';\n  \n  const labelCell = document.createElement('td');\n  labelCell.className = 'metrics-label';\n  labelCell.textContent = 'Status';\n  \n  const valueCell = document.createElement('td');\n  valueCell.className = 'metrics-value';\n  valueCell.textContent = 'No data available';\n  \n  row.appendChild(labelCell);\n  row.appendChild(valueCell);\n  metricsBody.appendChild(row);\n}",
+        "overflow": "auto",
+        "panelupdateOnMount": true,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "renderOnMount": true,
+        "rootCSS": "",
+        "useGrafanaScrollbar": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n\tphysical_input_rows,\r\n\tprocessed_input_rows,\r\n\tinternal_network_rows,\r\n\toutput_rows,\r\n\twritten_rows,\r\n\ttotal_rows\r\nFROM\r\n\t`trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n\tquery_id = '${query_id}'",
+          "refId": "A"
+        }
+      ],
+      "title": "Rows I/O",
+      "type": "gapit-htmlgraphics-panel"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 7,
+      "panels": [],
+      "title": "Details",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source_catalog"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Catalog"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source_schema"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Schema"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source_table"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Table"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "View table details",
+                    "url": "/d/eehtcqm31ze9sa/dlh-data-storage-details?var-catalog=${__data.fields.source_catalog}&var-schema=${__data.fields.source_schema}&var-table=${__data.fields.source_table}&from=now-90d&to=now"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source_physical_input_bytes"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Input Bytes"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlYlRd"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source_physical_input_rows"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Input Rows"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 44
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "source_physical_input_bytes",
+            "source_physical_input_rows"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n    source_catalog,\r\n    source_schema,\r\n    source_table,\r\n    source_physical_input_bytes,\r\n    source_physical_input_rows\r\nFROM\r\n    `trino-logs-experiment`.mv_source_tables\r\nWHERE\r\n    query_id = '${query_id}'\r\nORDER BY\r\n    source_physical_input_bytes DESC\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Source Tables",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "target_catalog"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Catalog"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "target_schema"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Schema"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "target_table"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Table"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "View table details",
+                    "url": "/d/eehtcqm31ze9sa/dlh-data-storage-details?var-catalog=${__data.fields.source_catalog}&var-schema=${__data.fields.source_schema}&var-table=${__data.fields.source_table}&from=now-90d&to=now"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "written_bytes"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Written Bytes"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlYlRd"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "written_rows"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Written Rows"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 44
+      },
+      "id": 14,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "source_physical_input_bytes",
+            "source_physical_input_rows"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n    target_catalog,\r\n    target_schema,\r\n    target_table,\r\n    written_bytes,\r\n    written_rows\r\nFROM\r\n    `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n    query_id = '${query_id}'\r\nORDER BY\r\n    written_bytes DESC\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Target Tables",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "wall_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Wall Time"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "execution_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Execution Time"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "physical_input_bytes"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Input Bytes"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "physical_input_rows"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Input Rows"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "query_id"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Query ID"
+              },
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "View Query Details",
+                    "url": "d/dlh-query-details?var-query_id=${__value.raw}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time"
+              },
+              {
+                "id": "unit",
+                "value": "dateTimeAsIso"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 54
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n    end_time AS time,\r\n    wall_time AS wall_time,\r\n    execution_time AS execution_time,\r\n    query_id\r\nFROM\r\n    `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n    `user` = (\r\n        SELECT `user`\r\n        FROM `trino-logs-experiment`.mv_query_metrics\r\n        WHERE query_id = '${query_id}'\r\n        LIMIT 1\r\n    )\r\n    AND `source` = (\r\n        SELECT `source`\r\n        FROM `trino-logs-experiment`.mv_query_metrics\r\n        WHERE query_id = '${query_id}'\r\n        LIMIT 1\r\n    )\r\n    AND query_type = (\r\n        SELECT query_type\r\n        FROM `trino-logs-experiment`.mv_query_metrics\r\n        WHERE query_id = '${query_id}'\r\n        LIMIT 1\r\n    )\r\n    AND query_state = 'FINISHED'\r\nORDER BY\r\n    end_time DESC\r\nLIMIT 100\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Previous Queries",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 50,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 2,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "Analysis": {
+                  "color": "semi-dark-blue",
+                  "index": 0
+                },
+                "Planning": {
+                  "color": "semi-dark-purple",
+                  "index": 1
+                },
+                "Queued": {
+                  "color": "semi-dark-yellow",
+                  "index": 2
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byType",
+              "options": "number"
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 54
+      },
+      "id": 11,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.85,
+        "colorByField": "phase",
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        },
+        "xField": "phase",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n    'Analysis' AS phase,\r\n    analysis_time AS duration\r\nFROM\r\n    `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n    query_id = '${query_id}'\r\n\r\nUNION ALL\r\n\r\nSELECT\r\n    'Planning' AS phase,\r\n    planning_time AS duration\r\nFROM\r\n    `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n    query_id = '${query_id}'\r\n\r\nUNION ALL\r\n\r\nSELECT\r\n    'Queued' AS phase,\r\n    queued_time AS duration\r\nFROM\r\n    `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n    query_id = '${query_id}'\r\n\r\nUNION ALL\r\n\r\nSELECT\r\n    'Execution' AS phase,\r\n    execution_time AS duration\r\nFROM\r\n    `trino-logs-experiment`.mv_query_metrics\r\nWHERE\r\n    query_id = '${query_id}'\r\n\r\nORDER BY\r\n    duration DESC\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Time per phase",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "id": 10,
+      "options": {
+        "dedupStrategy": "signature",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "${DS_CLICKHOUSE_DLH_MONITORING_TEST}"
+          },
+          "editorType": "sql",
+          "format": 2,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.8.2",
+          "queryType": "logs",
+          "rawSql": "SELECT\r\n    failure_type,\r\n    failure_message,\r\n    failures_json,\r\n    time_create_time\r\nFROM\r\n    `trino-logs-experiment`.mv_query_errors\r\nWHERE\r\n    query_id = '${query_id}'\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Error Message",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "jsonPaths": [
+              {
+                "path": ""
+              }
+            ],
+            "keepTime": false,
+            "replace": false,
+            "source": "failures_json"
+          }
+        }
+      ],
+      "type": "logs"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "hide": 0,
+        "includeAll": false,
+        "label": "Query ID",
+        "multi": false,
+        "name": "query_id",
+        "options": [],
+        "query": "",
+        "queryValue": "20250417_075110_00085_vnf7x",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "beg4m3hapjklcf"
+        },
+        "filters": [],
+        "hide": 0,
+        "name": "Filters",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "DLH Query Details",
+  "uid": "cehiijccq8jr4c",
+  "version": 61,
+  "weekStart": ""
+}
